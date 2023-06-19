@@ -10,8 +10,12 @@
 - Kotlin
 - Spring Boot 3
 - Spring Actuator
+- Spring Configuration Processor
+- Spring Devtools
 - Spring Kafka
 - Spring Retry
+- Spring Security OAuth2 JOSE
+- Spring Security Web
 - Spring WebFlux
 - Spring WebSocket
 - SpringDoc OpenAPI

@@ -1,9 +1,6 @@
-import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
-
 plugins {
     id("org.springframework.boot") version "3.1.0"
     id("io.spring.dependency-management") version "1.1.0"
-    id("org.openapi.generator") version "6.5.0"
     kotlin("jvm") version "1.8.21"
     kotlin("kapt") version "1.8.21"
     kotlin("plugin.spring") version "1.8.21"
@@ -99,49 +96,11 @@ dependencyManagement {
     }
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir("$buildDir/generated/src/main/java")
-        }
-    }
-}
-
-val openApiTasks = File("$rootDir/src/main/resources/specs")
-    .listFiles()
-    ?.map {
-        val name = it.name.replace(".yaml", "")
-
-        tasks.register("openApi-$name", GenerateTask::class.java) {
-            generatorName.set("java")
-            library.set("resttemplate")
-            inputSpec.set(it.path)
-            outputDir.set("$buildDir/generated")
-            apiPackage.set("$name.api")
-            invokerPackage.set("$name.invoker")
-            modelPackage.set("$name.model")
-            generateApiDocumentation.set(false)
-            generateModelDocumentation.set(false)
-            generateApiTests.set(false)
-            generateModelTests.set(false)
-            configOptions.set(
-                mapOf(
-                    "openApiNullable" to "false",
-                    "useJakartaEe" to "true"
-                )
-            )
-        }
-    }
-
 tasks {
     compileKotlin {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=all", "-Xjvm-enable-preview")
             jvmTarget = "19"
-        }
-
-        openApiTasks?.let {
-            dependsOn.addAll(it)
         }
     }
 
