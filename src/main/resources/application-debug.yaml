@@ -1,0 +1,8 @@
+debug: true
+
+logging:
+  level:
+    root: DEBUG
+    org:
+      apache:
+        kafka: INFO

@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    listener:
+      concurrency: 30
+    topic:
+      webSocketAnonymous:
+        partitions: 15
+      webSocketUser:
+        partitions: 15
+
+springdoc:
+  apiDocs:
+    enabled: false
+  swaggerUi:
+    enabled: false

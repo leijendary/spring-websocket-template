@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-websocket-template-config
+  namespace: template
+data:
+  SPRING_PROFILES_ACTIVE: dev
+  AUTH_AUDIENCE:
+  AUTH_ISSUER:
+  AUTH_JWK_SET_URI:
+  SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-service.kafka.svc.cluster.local:9092
+  SPRING_WEBSOCKET_RELAY_HOST:
+  SPRING_WEBSOCKET_RELAY_PORT:
+  MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://jaeger-service.monitoring.svc.cluster.local:9411/api/v2/spans

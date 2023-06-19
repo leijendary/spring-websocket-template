@@ -1,0 +1,104 @@
+info:
+  app:
+    organization: leijendary
+    group: ${group}
+    name: ${name}
+    description: ${description}
+    version: ${version}
+  api:
+    termsOfService:
+    contact:
+      name: Jonathan Leijendekker
+      url: https://leijendary.com
+      email:
+    license:
+      name: Jonathan Leijendekker
+      url: https://leijendary.com
+
+auth:
+  audience: https://leijendary.com
+  issuer: https://leijendary.com
+  jwkSetUri:
+
+spring:
+  application:
+    name: \${info.app.name}
+  jackson:
+    defaultPropertyInclusion: NON_ABSENT
+  kafka:
+    bootstrapServers:
+    clientId: \${info.app.name}
+    consumer:
+      groupId: \${info.app.name}
+      properties:
+        partition:
+          assignment:
+            strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+    jaas:
+      enabled: true
+      loginModule: org.apache.kafka.common.security.scram.ScramLoginModule
+      options:
+        username:
+        password:
+    producer:
+      acks: all
+    properties:
+      interceptor:
+        classes: com.leijendary.spring.websocket.template.core.interceptor.KafkaInterceptor
+      sasl:
+        mechanism: SCRAM-SHA-256
+    security:
+      protocol: SASL_SSL
+    topic:
+      webSocketAnonymous:
+        name: \${info.app.organization}.webSocket.anonymous
+      webSocketUser:
+        name: \${info.app.organization}.webSocket.user
+  main:
+    bannerMode: LOG
+  messages:
+    basename: messages.access
+  mvc:
+    throwExceptionIfNoHandlerFound: true
+  web:
+    resources:
+      addMappings: false
+  webSocket:
+    relay:
+      host:
+      port:
+      login:
+      passcode:
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+  http2:
+    enabled: true
+  port: 80
+
+springdoc:
+  pathsToMatch: /api/**
+  swaggerUi:
+    disableSwaggerDefaultUrl: true
+
+management:
+  endpoint:
+    health:
+      showDetails: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  zipkin:
+    tracing:
+      endpoint:
+
+logging:
+  level:
+    org:
+      apache:
+        kafka: ERROR
+  pattern:
+    level: '%5p [\${spring.application.name:},%X{traceId:-},%X{spanId:-}]'

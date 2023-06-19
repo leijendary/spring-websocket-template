@@ -1,0 +1,9 @@
+spring:
+  kafka:
+    jaas:
+      enabled: false
+    properties:
+      sasl:
+        mechanism: PLAIN
+    security:
+      protocol: PLAINTEXT

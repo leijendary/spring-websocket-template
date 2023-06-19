@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK 19
+        uses: actions/setup-java@v3
+        with:
+          java-version: 19
+          distribution: "zulu"
+          cache: "gradle"
+      - name: Execute Gradle Test
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test --info
+        env:
+          SPRING_PROFILES_ACTIVE: ci
