@@ -14,6 +14,9 @@ info:
     license:
       name: Jonathan Leijendekker
       url: https://leijendary.com
+    servers:
+      - url: http://localhost
+        description: local
 
 auth:
   audience: https://leijendary.com
