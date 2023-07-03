@@ -94,7 +94,10 @@ management:
     web:
       exposure:
         include: '*'
-  zipkin:
+  otlp:
+    metrics:
+      export:
+        url:
     tracing:
       endpoint:
 
