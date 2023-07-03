@@ -1,5 +1,5 @@
 plugins {
-    id("org.springframework.boot") version "3.1.0"
+    id("org.springframework.boot") version "3.1.1"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.21"
     kotlin("kapt") version "1.8.21"
@@ -74,10 +74,9 @@ dependencies {
 
     // Tracing
     implementation("com.github.loki4j:loki-logback-appender:1.4.0")
-    implementation("io.micrometer:micrometer-observation")
-    implementation("io.micrometer:micrometer-tracing-bridge-otel")
     implementation("io.micrometer:micrometer-registry-prometheus")
-    implementation("io.opentelemetry:opentelemetry-exporter-zipkin")
+    implementation("io.micrometer:micrometer-tracing-bridge-otel")
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp")
 
     // Test
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
@@ -91,7 +90,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("io.micrometer:micrometer-tracing-bom:1.0.1")
+        mavenBom("io.micrometer:micrometer-tracing-bom:1.1.2")
         mavenBom("org.testcontainers:testcontainers-bom:1.18.3")
     }
 }
