@@ -73,7 +73,7 @@ dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     // Tracing
-    implementation("com.github.loki4j:loki-logback-appender:1.4.0")
+    implementation("com.github.loki4j:loki-logback-appender:1.4.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("io.micrometer:micrometer-tracing-bridge-otel")
     implementation("io.opentelemetry:opentelemetry-exporter-otlp")
