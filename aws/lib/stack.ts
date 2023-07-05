@@ -19,12 +19,10 @@ export class ApplicationStack extends Stack {
     const clusterArn = `arn:aws:ecs:${region}:${account}:cluster/api-cluster-${environment}`;
     const namespaceArn = `arn:aws:servicediscovery:${region}:${account}:namespace/${namespaceId}`;
     const taskDefinition = new TaskDefinitionConstruct(this, {
-      ...props,
       repositoryArn,
     });
 
     new FargateServiceConstruct(this, {
-      ...props,
       vpcId,
       clusterArn,
       namespaceArn,
