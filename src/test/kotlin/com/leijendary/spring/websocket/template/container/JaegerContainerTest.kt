@@ -8,10 +8,10 @@ import org.testcontainers.utility.DockerImageName
 
 class JaegerContainerTest {
     companion object {
-        private val image = DockerImageName.parse("jaegertracing/jaeger-collector:1")
+        private val image = DockerImageName.parse("jaegertracing/all-in-one:1")
         private val jaeger = GenericContainer(image).apply {
-            addEnv("COLLECTOR_ZIPKIN_HTTP_PORT", "9411")
-            withExposedPorts(9411)
+            addEnv("COLLECTOR_OTLP_ENABLED", "true")
+            withExposedPorts(4318)
         }
     }
 
@@ -19,8 +19,10 @@ class JaegerContainerTest {
         override fun initialize(applicationContext: ConfigurableApplicationContext) {
             jaeger.start()
 
-            val endpoint = "${jaeger.host}:${jaeger.firstMappedPort}/api/v2/spans"
-            val properties = arrayOf("management.zipkin.tracing.endpoint=$endpoint")
+            val properties = arrayOf(
+                "management.otlp.metrics.export.url=${jaeger.host}:${jaeger.firstMappedPort}/v1/metrics",
+                "management.otlp.tracing.endpoint=${jaeger.host}:${jaeger.firstMappedPort}/v1/traces"
+            )
 
             TestPropertyValues
                 .of(*properties)

@@ -17,6 +17,14 @@ info:
     servers:
       - url: http://localhost
         description: local
+      - url: https://dev.localhost.com
+        description: dev
+      - url: https://test.localhost.com
+        description: test
+      - url: https://staging.localhost.com
+        description: staging
+      - url: https://localhost.com
+        description: prod
 
 auth:
   audience: https://leijendary.com
