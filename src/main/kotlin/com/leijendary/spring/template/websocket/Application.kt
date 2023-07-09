@@ -11,7 +11,7 @@ import org.springframework.retry.annotation.EnableRetry
 class Application
 
 fun main(args: Array<String>) {
-    runApplication<com.leijendary.spring.template.websocket.Application>(*args) {
+    runApplication<Application>(*args) {
         setBanner { environment, _, out ->
             val name = environment["info.app.name"]
             val version = environment["info.app.version"]
