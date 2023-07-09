@@ -55,7 +55,7 @@ spring:
       acks: all
     properties:
       interceptor:
-        classes: com.leijendary.spring.websocket.template.core.interceptor.KafkaInterceptor
+        classes: com.leijendary.spring.template.websocket.core.interceptor.KafkaInterceptor
       sasl:
         mechanism: SCRAM-SHA-256
     security:
