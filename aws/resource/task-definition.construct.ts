@@ -59,7 +59,7 @@ export class TaskDefinitionConstruct extends TaskDefinition {
   }
 
   private container(scope: Construct, image: ContainerImage, logGroup: LogGroup) {
-    const dataSourceCredentials = getDataSourceCredentials(scope);
+    const dataStorageCredentials = getDataStorageCredentials(scope);
 
     this.addContainer(`${id}Container-${environment}`, {
       containerName: name,
@@ -84,10 +84,10 @@ export class TaskDefinitionConstruct extends TaskDefinition {
         SPRING_PROFILES_ACTIVE: environment,
       },
       secrets: {
-        SPRING_KAFKA_JAAS_OPTIONS_USERNAME: dataSourceCredentials.kafka.username,
-        SPRING_KAFKA_JAAS_OPTIONS_PASSWORD: dataSourceCredentials.kafka.password,
-        SPRING_WEBSOCKET_RELAY_LOGIN: dataSourceCredentials.rabbitmq.login,
-        SPRING_WEBSOCKET_RELAY_PASSCODE: dataSourceCredentials.rabbitmq.passcode,
+        SPRING_KAFKA_JAAS_OPTIONS_USERNAME: dataStorageCredentials.kafka.username,
+        SPRING_KAFKA_JAAS_OPTIONS_PASSWORD: dataStorageCredentials.kafka.password,
+        SPRING_WEBSOCKET_RELAY_LOGIN: dataStorageCredentials.rabbitmq.login,
+        SPRING_WEBSOCKET_RELAY_PASSCODE: dataStorageCredentials.rabbitmq.passcode,
       },
     });
   }
@@ -152,7 +152,7 @@ const getImage = (repository: IRepository) => {
   return ContainerImage.fromEcrRepository(repository, imageTag);
 };
 
-const getDataSourceCredentials = (scope: Construct) => {
+const getDataStorageCredentials = (scope: Construct) => {
   const credential = SecretManager.fromSecretNameV2(
     scope,
     `${id}DataStorageSecret-${environment}`,
