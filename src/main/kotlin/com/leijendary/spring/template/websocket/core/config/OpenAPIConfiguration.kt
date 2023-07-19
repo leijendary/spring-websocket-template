@@ -16,19 +16,17 @@ import org.springframework.http.HttpHeaders.AUTHORIZATION
 class OpenAPIConfiguration(private val infoProperties: InfoProperties) {
     @Bean
     fun openAPI(): OpenAPI {
-        val app = infoProperties.app
-        val api = infoProperties.api
         val info = Info().apply {
-            title = app.name
-            description = app.description
-            termsOfService = api.termsOfService
-            contact = api.contact
-            license = api.license
-            version = app.version
-            extensions = api.extensions
+            title = infoProperties.app.name
+            description = infoProperties.app.description
+            termsOfService = infoProperties.api.termsOfService
+            contact = infoProperties.api.contact
+            license = infoProperties.api.license
+            version = infoProperties.app.version
+            extensions = infoProperties.api.extensions
         }
         val securityRequirement = SecurityRequirement().addList(AUTHORIZATION)
 
-        return OpenAPI().info(info).servers(api.servers).addSecurityItem(securityRequirement)
+        return OpenAPI().info(info).servers(infoProperties.api.servers).addSecurityItem(securityRequirement)
     }
 }
