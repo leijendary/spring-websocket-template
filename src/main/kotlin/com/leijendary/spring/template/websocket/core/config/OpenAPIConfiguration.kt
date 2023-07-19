@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType.HTTP
 import io.swagger.v3.oas.annotations.security.SecurityScheme
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.security.SecurityRequirement
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders.AUTHORIZATION
@@ -26,7 +27,8 @@ class OpenAPIConfiguration(private val infoProperties: InfoProperties) {
             version = app.version
             extensions = api.extensions
         }
+        val securityRequirement = SecurityRequirement().addList(AUTHORIZATION)
 
-        return OpenAPI().info(info).servers(api.servers)
+        return OpenAPI().info(info).servers(api.servers).addSecurityItem(securityRequirement)
     }
 }
