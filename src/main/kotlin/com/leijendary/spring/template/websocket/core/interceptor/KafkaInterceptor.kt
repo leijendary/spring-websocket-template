@@ -34,7 +34,7 @@ class KafkaInterceptor : ProducerInterceptor<String, Any>, ConsumerInterceptor<S
             val traceParent = it.headers()
                 .lastHeader(HEADER_TRACE_PARENT)
                 ?.value()
-                ?.let { bytes -> String(bytes) }
+                ?.let(::String)
             val text = "Received from topic '$topic' on partition '$partition' with key '$key' and payload '$payload'"
 
             Tracing.log(traceParent) {
