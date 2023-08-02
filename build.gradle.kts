@@ -60,17 +60,20 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     testImplementation("org.springframework.kafka:spring-kafka-test")
 
+    // Devtools
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+    // Jackson
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     // MapStruct
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
     testImplementation("org.mapstruct:mapstruct-processor:1.5.3.Final")
 
     // OpenAPI
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
-
-    // Devtools
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 
     // Tracing
     implementation("com.github.loki4j:loki-logback-appender:1.4.1")
