@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component
 class WebSocketMessageConsumer(private val messageService: MessageService) {
     @KafkaListener(topics = ["\${spring.kafka.topic.$WEBSOCKET_ANONYMOUS.name}"])
     fun anonymous(json: String) {
-        val message: WebSocketAnonymousMessage = json.toClass()
+        val message = json.toClass<WebSocketAnonymousMessage>()
 
         messageService.send(message.topic, message.payload)
     }
 
     @KafkaListener(topics = ["\${spring.kafka.topic.$WEBSOCKET_USER.name}"])
     fun user(json: String) {
-        val message: WebSocketUserMessage = json.toClass()
+        val message = json.toClass<WebSocketUserMessage>()
 
         messageService.sendToUser(message.userId, message.topic, message.payload)
     }
