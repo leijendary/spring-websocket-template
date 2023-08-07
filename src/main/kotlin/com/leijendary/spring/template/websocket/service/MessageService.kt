@@ -1,4 +1,4 @@
-package com.leijendary.spring.template.websocket.core.config.service
+package com.leijendary.spring.template.websocket.service
 
 import com.leijendary.spring.template.websocket.core.config.PREFIX_TOPIC
 import org.springframework.messaging.simp.SimpMessagingTemplate
