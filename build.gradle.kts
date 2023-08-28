@@ -1,18 +1,23 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
-    id("org.springframework.boot") version "3.1.1"
+    val kotlinVersion = "1.9.10"
+
+    id("org.springframework.boot") version "3.1.3"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.8.21"
-    kotlin("kapt") version "1.8.21"
-    kotlin("plugin.spring") version "1.8.21"
+    kotlin("jvm") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
 }
 
 group = "com.leijendary.spring"
 version = "1.0.0"
 description = "Spring Boot WebSocket Template for the Microservice Architecture or general purpose"
-java.sourceCompatibility = JavaVersion.VERSION_19
+java.sourceCompatibility = JavaVersion.VERSION_20
 
 configurations {
-    compileOnly {
+    implementation {
         extendsFrom(configurations.annotationProcessor.get())
     }
     testImplementation {
@@ -98,14 +103,16 @@ dependencyManagement {
     }
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=all", "-Xjvm-enable-preview")
-            jvmTarget = "19"
-        }
+kotlin {
+    compilerOptions {
+        apiVersion.set(KotlinVersion.KOTLIN_2_0)
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xjvm-default=all", "-Xjvm-enable-preview")
+        languageVersion.set(KotlinVersion.KOTLIN_2_0)
+        jvmTarget.set(JvmTarget.JVM_20)
     }
+}
 
+tasks {
     compileJava {
         options.compilerArgs.add("--enable-preview")
     }

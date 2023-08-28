@@ -44,8 +44,8 @@ out/
 ### Logs ###
 *.log
 
-### jenv ###
-.java-version
+### SDKMAN ###
+.sdkmanrc
 
 ### CDK ###
 !aws/bin/
