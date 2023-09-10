@@ -38,7 +38,6 @@ jobs:
           ORGANIZATION: ${{ vars.ORGANIZATION }}
           VPC_ID: ${{ vars.VPC_ID }}
           IMAGE_TAG: ${{ inputs.image-tag }}
-          NAMESPACE_ARN: ${{ vars.NAMESPACE_ARN }}
           NAMESPACE_ID: ${{ vars.NAMESPACE_ID }}
           NAMESPACE_NAME: ${{ vars.NAMESPACE_NAME }}
         working-directory: ./aws
