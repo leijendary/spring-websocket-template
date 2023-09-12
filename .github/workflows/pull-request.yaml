@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: JUnit
+    name: Test
     uses: ./.github/workflows/test.yaml
     with:
       environment: dev

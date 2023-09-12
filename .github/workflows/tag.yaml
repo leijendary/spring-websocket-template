@@ -5,20 +5,24 @@ on:
 
 jobs:
   docker:
-    name: Tag Image
+    name: Tag image
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 1
     environment: prod
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/DeploymentRole-${{ inputs.environment }}
       - id: login-ecr
         name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: "true"
       - name: Tag and push
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -28,10 +32,10 @@ jobs:
           docker tag ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ github.ref_name }}
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ github.ref_name }}
   deploy:
-    name: Fargate
+    needs: docker
+    name: Deploy
     uses: ./.github/workflows/deploy.yaml
     with:
       environment: prod
       image-tag: ${{ github.ref_name }}
     secrets: inherit
-    needs: docker
