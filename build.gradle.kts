@@ -117,14 +117,6 @@ tasks {
         options.compilerArgs.add("--enable-preview")
     }
 
-    bootJar {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    }
-
-    jar {
-        enabled = false
-    }
-
     test {
         jvmArgs = listOf("--enable-preview")
         useJUnitPlatform()
