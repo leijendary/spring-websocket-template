@@ -44,8 +44,6 @@ jobs:
           IMAGE_TAG: ${{ inputs.image-tag }}
           NAMESPACE_ID: ${{ vars.NAMESPACE_ID }}
           NAMESPACE_NAME: ${{ vars.NAMESPACE_NAME }}
-          DISTRIBUTION_ID: ${{ vars.DISTRIBUTION_ID }}
-          DISTRIBUTION_DOMAIN_NAME: ${{ vars.DISTRIBUTION_DOMAIN_NAME }}
         working-directory: ./aws
         run: |
           npm ci
