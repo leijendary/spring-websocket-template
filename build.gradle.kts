@@ -14,7 +14,19 @@ plugins {
 group = "com.leijendary.spring"
 version = "1.0.0"
 description = "Spring Boot WebSocket Template for the Microservice Architecture or general purpose"
-java.sourceCompatibility = JavaVersion.VERSION_20
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_20
+}
+
+kotlin {
+    compilerOptions {
+        apiVersion.set(KotlinVersion.KOTLIN_2_0)
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xjvm-default=all", "-Xjvm-enable-preview")
+        languageVersion.set(KotlinVersion.KOTLIN_2_0)
+        jvmTarget.set(JvmTarget.JVM_20)
+    }
+}
 
 configurations {
     implementation {
@@ -100,15 +112,6 @@ dependencyManagement {
     imports {
         mavenBom("io.micrometer:micrometer-tracing-bom:1.1.2")
         mavenBom("org.testcontainers:testcontainers-bom:1.18.3")
-    }
-}
-
-kotlin {
-    compilerOptions {
-        apiVersion.set(KotlinVersion.KOTLIN_2_0)
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xjvm-default=all", "-Xjvm-enable-preview")
-        languageVersion.set(KotlinVersion.KOTLIN_2_0)
-        jvmTarget.set(JvmTarget.JVM_20)
     }
 }
 
