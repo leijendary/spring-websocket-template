@@ -23,9 +23,9 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/DeploymentRole-${{ inputs.environment }}
-      - id: login-ecr
-        name: Login to ECR
-        uses: aws-actions/amazon-ecr-login@v1
+      - id: login-registry
+        name: Login to registry
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: "true"
       - name: Setup node.js

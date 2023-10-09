@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 20
-          distribution: "temurin"
+          distribution: "zulu"
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
       - name: Checkout

@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 20
-          distribution: "temurin"
+          distribution: "zulu"
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
       - name: Checkout
@@ -52,7 +52,7 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/DeploymentRole-${{ inputs.environment }}
       - id: login-registry
         name: Login to registry
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: "true"
       - name: Download dockerfile

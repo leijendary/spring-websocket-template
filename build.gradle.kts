@@ -4,8 +4,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
     val kotlinVersion = "1.9.10"
 
-    id("org.springframework.boot") version "3.1.3"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.springframework.boot") version "3.1.4"
+    id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
@@ -29,7 +29,7 @@ kotlin {
 }
 
 configurations {
-    implementation {
+    compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
     testImplementation {
@@ -79,15 +79,15 @@ dependencies {
 
     // Devtools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // Jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // MapStruct
-    implementation("org.mapstruct:mapstruct:1.5.3.Final")
-    kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
-    testImplementation("org.mapstruct:mapstruct-processor:1.5.3.Final")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
+    testImplementation("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
     // OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
